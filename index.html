@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <script src="inddex.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <header id="header">
+        <div class="logo">
+          <img id="header-img" src="logo-01.png" alt="company logo" />
+        </div>
+        <nav id="nav-bar">
+          <ul id="links">
+            <li>
+              <a class="nav-link" href="#overview-s">ESPhishing</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#tech-s">Deauther</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#how-s">Raspberry</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#pricing-s">//</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+
+      <div class="container">
+        <div id="hero" class="content">
+          <h1>esp8266 Captive Portal</h1>
+          <p>O ESPhishing é um ataque de portal cativo executado na placa de desenvolvimento NodeMCU com o microcontrolador ESP8266. É uma ferramenta de engenharia social que gera uma rede WiFi de um determinado nome, atraindo pessoas para se conectarem a ela e inserirem credenciais.</p>
+      
+          <img src="esp8266.png" class="responsive" alt="arduion uno picture">
+      
+          <form id="form" action="https://www.linkedin.com/in/isaque-goncalves-779306240/">
+            <input id="email" type="email" name="email" placeholder="ENTER YOUR EMAIL" required>
+            <input id="submit" type="submit" class="button" value="Obtenha mais Informaçoes">
+          </form>
+        </div>
+      
+        <div id="overview" class="content">
+          <h2 id="overview-s">Entendendo o ESPhishing</h2>
+          <p>O ESPhishing é um método eficaz de ataque cibernético que explora a confiança e o comportamento automático das pessoas ao se conectarem a redes Wi-Fi. 
+            Ao criar uma rede Wi-Fi falsa, os atacantes podem coletar informações confidenciais, como nomes de usuário e senhas, de forma quase imperceptível.</p>
+      
+          <p>Quando fiz meu primeiro teste tentei guardar os logs capturados dentro do próprio dispositivo, porem isto me incomodou, pois eu só teria acesso aos logs 
+            quando eu pegasse o dispositivo levasse para um PC e fizesse todo procedimento... MT trabalho fazer isso então decidi simplificar e criar uma forma de enviar os logs 
+            para uma página que seria hospedada no próprio dispositivo, sendo assim eu precisaria somente ligar o aparelho, entrar na página e esperar os logs começarem a aparecer 
+            para isto usei a função sendDataToServer(String data) para enviar os logs capturados para esta página web automaticamente, para entender o funcionamento de tudo 
+            precisamos entender primeiro sobre 5 funções/bibliotecas que seriam: 
+            <br><br>
+            <b>Configuração do Ponto de Acesso (Access Point):</b> Cria e Define-se o SSID (nome da rede Wi-Fi) e a senha para o ponto de acesso.
+            <br><br>
+            <b>Configuração do Servidor Web: </b>Define-se rotas para manipular as solicitações HTTP recebidas pelo servidor web. Isso inclui a definição 
+            de ações específicas a serem tomadas quando um cliente acessa determinadas URLs como, por exemplo, quando você tentar se conectar te redirecionar para determinada URL.
+            <br><br>
+            <b>Envio de logs para o servidor local:</b> A função sendDataToServer(String data) é responsável por enviar os logs capturados para uma página hospedada no próprio dispositivo.
+            Isso é feito utilizando uma conexão TCP/IP para enviar os dados por meio de uma solicitação HTTP POST.
+            <br><br>
+             <b>Laço principal:</b> O laço principal do programa verifica continuamente se há requisições DNS e HTTP pendentes para serem processadas.
+            <br><br>
+            <b>A Baixo temos uma parte inicial do código: </b>
+          </p>
+          <img src="codigo 1.png" alt="" width="100%">
+        
+      
+        <p>
+          Vemos nesta parte do código que esta sendo chamadas as paginas Web, as bibliotecas Wi-Fi, o destino IP que 
+          neste caso estamos usando o próprio IP do dispositivo, e algumas funções citadas no texto anterior a imagem. 
+        <br>
+         <b> Agora nesta imagem a seguir já vemos a parte mais interessante ocorrendo e que irei lhes resumir o funcionamento:</b>
+        </p>
+        <img src="codigo 2 .png" alt="" width="100%">
+
+        <p>
+        Vamos simplificar:
+<br> <br>
+   1. **Validação e armazenamento de combinações de usuário/senha lembrando que definimos o url na 1 parte do codigo :**<br> 
+      - Quando alguém tenta entrar na página "/validate", o servidor faz algumas coisas:<br> 
+      - Ele pega o nome de usuário, a senha e a URL que a pessoa está tentando usar e os envia para a pagina /log.<br> 
+      - Ele anota essas informações em um arquivo de registro, como um diário, para lembrar quem tentou entrar e com quais informações.<br> 
+      - Em seguida, diz à pessoa que houve um erro de configuração no roteador, para tentar fazer algo engraçado. (afinal esta rede e fake e nao tem como se conectar realmente)<br> 
+      - Por fim, pisca a luz do LED algumas vezes e envia as informações (como nome de usuário, senha e URL) para a pagina /log.<br> 
+      <br> <br>
+   2. **Página de registro onde fica armazenado os logs:**<br> <br>
+      - Quando alguém acessa a página "/logs", o servidor mostra a eles uma página especial:<br>
+      - Nessa página, ele lista todas as tentativas anteriores de acesso, com nomes de usuário, senhas e URLs que foram usados.<br>
+      - Também dá a opção de apagar todos esses registros, se a pessoa quiser.<br>
+        </p>
+</div>
+
+        <div id="tech" class="content">
+          <h2 id="tech-s">Especificações técnicas do ESP8266</h2>
+          <table>
+            <tr>
+              <td>Microcontrolador</td>
+              <td><a  target="_blank"> ESP8266</a></td>
+            </tr>
+            <tr>
+              <td>Tensão de operação</td>
+              <td>3.3V</td>
+            </tr>
+            <tr>
+              <td>Tensão de entrada recomendada:</td>
+              <td>3.3V</td>
+            </tr>
+            <tr>
+              <td>Tensão de entrada limite:</td>
+              <td>3.6V</td>
+            </tr>
+            <tr>
+              <td>Pinos de E/S digital:</td>
+              <td>11</td>
+            </tr>
+            <tr>
+              <td>Pinos de E/S digital PWM:</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>Pinos de entrada analógica:</td>
+              <td>1 (pode ser usado como entrada digital também)</td>
+            </tr>
+            <tr>
+              <td>Corrente contínua por pino de E/S:</td>
+              <td>12mA</td>
+            </tr>
+            <tr>
+              <td>Corrente contínua máxima para o módulo:</td>
+              <td>170mA</td>
+            </tr>
+            <tr>
+              <td>Memória flash:</td>
+              <td>4MB (32Mb)</td>
+            </tr>
+            <tr>
+              <td>SRAM:</td>
+              <td>80KB</td>
+            </tr>
+            <tr>
+              <td>EEPROM:</td>
+              <td>512 bytes</td>
+            </tr>
+            <tr>
+              <td>Velocidade do clock:</td>
+              <td>80MHz</td>
+            </tr>
+            <tr>
+              <td>Pino de LED embutido:</td>
+              <td>GPIO2</td>
+            </tr>
+            <tr>
+              <td>Comprimento:</td>
+              <td>Varia dependendo do formato do módulo, geralmente em torno de 24mm</td>
+            </tr>
+            <tr>
+              <td>Largura:</td>
+              <td>Varia dependendo do formato do módulo, geralmente em torno de 16mm</td>
+            </tr>
+            <tr>
+              <td>Peso:</td>
+              <td>Varia dependendo do formato do módulo, geralmente em torno de 1-2 gramas</td>
+            </tr>
+          </table>
+        </div>
+      
+        <div class="video">
+        <video width="640" height="360" controls>
+          <source src="esp.mp4" type="video/mp4">
+          Seu navegador não suporta vídeo HTML5.
+        </video></div>
+          <br><br><br>
+        </div>
+    
+    <div class="git"><p>Confira o repositório abaixo, onde regularmente realizamos atualizações e adicionamos novos códigos.</p><a href="https://github.com/Isaqueharper"> <img src="git-01.png" alt="" width="30%" > </a>  </div>    
+    
+       
+</body>
+</html>
